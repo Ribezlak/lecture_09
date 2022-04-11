@@ -35,22 +35,19 @@ def linear_search(sequence, searched_number):
 
 
 def pattern_search(sequence, pattern):
+    positions = []
 
-    dna_segmented = []
-    segment_range = []
-    start_index = 0
-    zoznam = []
+    for index in range(len(sequence)-len(pattern)+1):
+        subsequence = sequence[index:(index+len(pattern))]
+        same = True
+        for letter_subsequence, letter_pattern in zip(subsequence, pattern):
+            if letter_subsequence != letter_pattern:
+                same = False
+                break
+        if same:
+            positions.append(index)
 
-    for index in range(len(sequence) - len(pattern) - 1):
-        if sequence[index:index + len(pattern)] != pattern:
-            continue
-        else:
-            dna_segmented.append(sequence[start_index:index])
-            segment_range.append([start_index, index - 1])
-            start_index = index + len(pattern)
-            zoznam.append(index)
-
-    return set(zoznam)
+        return positions
 
 
 def main():
